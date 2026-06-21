@@ -25,12 +25,11 @@ $totalExpenses = $expenseModel->sumByMonth($userId, $month, $year);
 $balance       = $totalIncome - $totalExpenses;
 
 $expensesByCategory = $expenseModel->sumByCategoryAndMonth($userId, $month, $year);
-$recentIncomes      = $incomeModel->findByUser($userId, $month, $year);
-$recentExpenses     = $expenseModel->findByUser($userId, $month, $year);
 
-// Combina i ordena per data desc per mostrar les últimes transaccions
+$recentIncomes  = $incomeModel->findByUser($userId, $month, $year);
+$recentExpenses = $expenseModel->findByUser($userId, $month, $year);
+
 $transactions = [];
-
 foreach ($recentIncomes as $item) {
     $item['type'] = 'income';
     $transactions[] = $item;
@@ -39,11 +38,15 @@ foreach ($recentExpenses as $item) {
     $item['type'] = 'expense';
     $transactions[] = $item;
 }
-
 usort($transactions, fn($a, $b) => strcmp($b['date'], $a['date']));
 $lastTransactions = array_slice($transactions, 0, 8);
 
-$monthName = strftime('%B %Y') ?: date('F Y');
+$monthNames = [
+    1 => 'Gener', 2 => 'Febrer', 3 => 'Març', 4 => 'Abril',
+    5 => 'Maig', 6 => 'Juny', 7 => 'Juliol', 8 => 'Agost',
+    9 => 'Setembre', 10 => 'Octubre', 11 => 'Novembre', 12 => 'Desembre',
+];
+$monthLabel = $monthNames[$month] . ' ' . $year;
 
 $currentPage = 'dashboard';
 ?>
@@ -73,7 +76,7 @@ $currentPage = 'dashboard';
         <div class="page-header">
             <div>
                 <h1>Resum del mes</h1>
-                <p class="page-subtitle"><?= ucfirst($monthName) ?></p>
+                <p class="page-subtitle"><?= $monthLabel ?></p>
             </div>
             <button class="btn-primary-pk" id="btnAddTransaction">
                 <i class="bi bi-plus-lg"></i> Afegir
@@ -102,13 +105,20 @@ $currentPage = 'dashboard';
             </div>
         </div>
 
-        <!-- Cos principal: gràfic + transaccions -->
+        <!-- Gràfic evolució 6 mesos -->
+        <div class="card-pk">
+            <h2 class="card-title">Evolució dels últims 6 mesos</h2>
+            <div class="chart-wrapper">
+                <canvas id="evolutionChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Grid: categories + transaccions -->
         <div class="dashboard-grid">
 
             <!-- Despeses per categoria -->
             <div class="card-pk">
                 <h2 class="card-title">Despeses per categoria</h2>
-
                 <?php if (empty($expensesByCategory)): ?>
                     <div class="empty-state">
                         <i class="bi bi-bar-chart"></i>
@@ -125,7 +135,6 @@ $currentPage = 'dashboard';
             <!-- Últimes transaccions -->
             <div class="card-pk">
                 <h2 class="card-title">Últimes transaccions</h2>
-
                 <?php if (empty($lastTransactions)): ?>
                     <div class="empty-state">
                         <i class="bi bi-receipt"></i>
@@ -188,14 +197,13 @@ $currentPage = 'dashboard';
                 <i class="bi bi-x-lg"></i>
             </button>
         </div>
-        <div class="modal-body" id="modalBody">
-            <!-- El contingut es carrega dinàmicament via JS -->
-        </div>
+        <div class="modal-body" id="modalBody"></div>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <script>
-    const CATEGORIES = <?= json_encode($expensesByCategory) ?>;
+    const CATEGORIES     = <?= json_encode($expensesByCategory) ?>;
     const TOTAL_EXPENSES = <?= $totalExpenses ?>;
 </script>
 <script src="../assets/js/dashboard.js"></script>

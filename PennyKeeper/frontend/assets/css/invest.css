@@ -1,0 +1,253 @@
+/*
+ * invest.css
+ * Estils per a la pàgina d'inversions.
+ */
+
+/* ── Resum global ───────────────────────────────────────────── */
+.invest-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.invest-summary-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ── Taula ──────────────────────────────────────────────────── */
+.invest-table .text-right { text-align: right; }
+.invest-table .text-muted { color: var(--color-text-muted); }
+
+.invest-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.invest-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+    color: var(--color-dark);
+}
+
+/* ── Badge de tipus ─────────────────────────────────────────── */
+.invest-type-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    border: 1px solid transparent;
+}
+
+.invest-type-badge--stocks {
+    background-color: #EAF0FB;
+    color: #2C5282;
+    border-color: #BEE3F8;
+}
+
+.invest-type-badge--crypto {
+    background-color: #FEF9EC;
+    color: #744210;
+    border-color: #FAF089;
+}
+
+.invest-type-badge--funds {
+    background-color: #F0FFF4;
+    color: #276749;
+    border-color: #C6F6D5;
+}
+
+.invest-type-badge--real_estate {
+    background-color: #FAF5FF;
+    color: #553C9A;
+    border-color: #E9D8FD;
+}
+
+.invest-type-badge--other {
+    background-color: var(--color-bg);
+    color: var(--color-text-muted);
+    border-color: var(--color-border);
+}
+
+/* ── Percentatge de variació ────────────────────────────────── */
+.invest-pct {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.1rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+}
+
+.invest-pct--up {
+    background-color: #e8f2ec;
+    color: var(--color-success);
+}
+
+.invest-pct--down {
+    background-color: #f5e8e8;
+    color: var(--color-danger);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .invest-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .invest-table thead th:nth-child(6),
+    .invest-table tbody td:nth-child(6) {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .invest-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .invest-table thead th:nth-child(2),
+    .invest-table tbody td:nth-child(2),
+    .invest-table thead th:nth-child(3),
+    .invest-table tbody td:nth-child(3) {
+        display: none;
+    }
+}
+
+/* ── Targetes d'inversió (layout nou) ──────────────────────── */
+.invest-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1.25rem;
+}
+
+.invest-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.invest-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.invest-card-actions {
+    display: flex;
+    gap: 0.3rem;
+    flex-shrink: 0;
+}
+
+.invest-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-dark);
+    font-family: var(--font-display);
+    margin-bottom: 0.3rem;
+}
+
+/* ── Xifres clau ────────────────────────────────────────────── */
+.invest-figures {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    background-color: var(--color-bg);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem;
+}
+
+.invest-figure {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.invest-figure-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+}
+
+.invest-figure-value {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.invest-notes {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+/* ── Aportacions dins la targeta ────────────────────────────── */
+.contributions-section {
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.75rem;
+}
+
+.contributions-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.contributions-list {
+    list-style: none;
+}
+
+.contribution-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.82rem;
+}
+
+.contribution-item:last-child { border-bottom: none; }
+
+.contribution-date  { color: var(--color-text-muted); flex-shrink: 0; width: 70px; }
+.contribution-notes { flex: 1; color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.contribution-amount { font-weight: 600; color: var(--color-success); flex-shrink: 0; }
+
+.btn-delete-contribution {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    padding: 0.1rem 0.2rem;
+    border-radius: var(--radius-sm);
+    line-height: 1;
+    transition: color var(--transition);
+    flex-shrink: 0;
+}
+
+.btn-delete-contribution:hover { color: var(--color-danger); }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .invest-cards-grid    { grid-template-columns: 1fr; }
+    .invest-figures       { grid-template-columns: repeat(2, 1fr); }
+}

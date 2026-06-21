@@ -25,9 +25,13 @@ $action = $_GET['action'] ?? '';
 $userId = Auth::userId();
 
 match ($action) {
-    'income'  => handleIncome($userId),
-    'expense' => handleExpense($userId),
-    default   => jsonResponse(false, 'Acció no reconeguda.', 404),
+    'income'         => handleIncome($userId),
+    'expense'        => handleExpense($userId),
+    'update_income'  => handleUpdate($userId, 'income'),
+    'update_expense' => handleUpdate($userId, 'expense'),
+    'delete_income'  => handleDelete($userId, 'income'),
+    'delete_expense' => handleDelete($userId, 'expense'),
+    default          => jsonResponse(false, 'Acció no reconeguda.', 404),
 };
 
 // -------------------------------------------------------------
@@ -75,6 +79,65 @@ function handleExpense(int $userId): void
 }
 
 // -------------------------------------------------------------
+
+function handleUpdate(int $userId, string $type): void
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        jsonResponse(false, 'Mètode no permès.', 405);
+        return;
+    }
+
+    $id   = (int) ($_POST['id'] ?? 0);
+    $data = collectTransactionData();
+
+    if ($id <= 0) {
+        jsonResponse(false, 'ID no vàlid.', 422);
+        return;
+    }
+
+    $errors = validateTransaction($data);
+    if (!empty($errors)) {
+        jsonResponse(false, $errors[0], 422);
+        return;
+    }
+
+    $model  = $type === 'income' ? new Income() : new Expense();
+    $result = $model->update($id, $userId, $data);
+
+    if (!$result) {
+        jsonResponse(false, 'No s\'ha pogut actualitzar.', 500);
+        return;
+    }
+
+    $label = $type === 'income' ? 'Ingrés' : 'Despesa';
+    jsonResponse(true, "$label actualitzat correctament.");
+}
+
+function handleDelete(int $userId, string $type): void
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        jsonResponse(false, 'Mètode no permès.', 405);
+        return;
+    }
+
+    $id = (int) ($_POST['id'] ?? 0);
+
+    if ($id <= 0) {
+        jsonResponse(false, 'ID no vàlid.', 422);
+        return;
+    }
+
+    $model  = $type === 'income' ? new Income() : new Expense();
+    $result = $model->delete($id, $userId);
+
+    if (!$result) {
+        jsonResponse(false, 'No s\'ha pogut eliminar.', 500);
+        return;
+    }
+
+    $label = $type === 'income' ? 'Ingrés' : 'Despesa';
+    jsonResponse(true, "$label eliminat correctament.");
+}
 
 function collectTransactionData(): array
 {

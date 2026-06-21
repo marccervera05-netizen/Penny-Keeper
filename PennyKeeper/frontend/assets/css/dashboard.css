@@ -485,3 +485,15 @@
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
+/* ── Gràfic d'evolució ──────────────────────────────────────── */
+.chart-wrapper {
+    position: relative;
+    height: 240px;
+}
+
+@media (max-width: 768px) {
+    .chart-wrapper {
+        height: 200px;
+    }
+}
