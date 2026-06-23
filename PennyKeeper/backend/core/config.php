@@ -2,32 +2,44 @@
 /*
  * config.php
  * Configuració global de l'aplicació.
- * Totes les constants que usen la resta d'arxius es defineixen aquí.
+ *
+ * PER A ÚS LOCAL (XAMPP):
+ *   APP_ENV  → 'development'
+ *   APP_URL  → 'http://localhost/Projectes/PENNYKEEPER/frontend'
+ *   DB_USER  → 'root'
+ *   DB_PASS  → ''
+ *
+ * PER A PRODUCCIÓ (hosting):
+ *   APP_ENV  → 'production'
+ *   APP_URL  → 'https://el-teu-domini.com'
+ *   DB_*     → credencials del hosting
  */
 
-// Entorn: 'development' | 'production'
-define('APP_ENV', 'development');
+// ── Entorn ───────────────────────────────────────────────────
+define('APP_ENV', 'development'); // canvia a 'production' al hosting
 
-// Nom i versió
-define('APP_NAME', 'PennyKeeper');
+// ── App ──────────────────────────────────────────────────────
+define('APP_NAME',    'PennyKeeper');
 define('APP_VERSION', '1.0.0');
 
-// URL base (sense trailing slash)
-// Ajusta el path si no estàs a l'arrel de XAMPP
+// ── URL base (sense trailing slash) ──────────────────────────
+// LOCAL:
 define('APP_URL', 'http://localhost/Projectes/PENNYKEEPER/frontend');
+// PRODUCCIÓ (comenta l'anterior i descomenta aquesta):
+// define('APP_URL', 'https://el-teu-domini.com');
 
-// Configuració de la base de dades
-define('DB_HOST', 'localhost');
-define('DB_PORT', 3306);
-define('DB_NAME', 'pennykeeper_db');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+// ── Base de dades ─────────────────────────────────────────────
+define('DB_HOST',    'localhost');
+define('DB_PORT',    3306);
+define('DB_NAME',    'pennykeeper_db');
+define('DB_USER',    'root');      // hosting: usuari del panell de BD
+define('DB_PASS',    '');          // hosting: contrasenya del panell de BD
 define('DB_CHARSET', 'utf8mb4');
 
-// Durada de la sessió en segons (8 hores)
-define('SESSION_LIFETIME', 28800);
+// ── Sessió ────────────────────────────────────────────────────
+define('SESSION_LIFETIME', 28800); // 8 hores
 
-// Errors: en development mostrem tot, en production res
+// ── Errors ────────────────────────────────────────────────────
 if (APP_ENV === 'development') {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
