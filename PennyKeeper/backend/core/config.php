@@ -16,7 +16,7 @@
  */
 
 // ── Entorn ───────────────────────────────────────────────────
-define('APP_ENV', 'development'); // canvia a 'production' al hosting
+define('APP_ENV', 'production'); // canvia a 'production' al hosting
 
 // ── App ──────────────────────────────────────────────────────
 define('APP_NAME',    'PennyKeeper');
@@ -24,7 +24,7 @@ define('APP_VERSION', '1.0.0');
 
 // ── URL base (sense trailing slash) ──────────────────────────
 // LOCAL:
-define('APP_URL', 'http://localhost/Projectes/PENNYKEEPER/frontend');
+define('APP_URL', 'http://pennykeeper.es');
 // PRODUCCIÓ (comenta l'anterior i descomenta aquesta):
 // define('APP_URL', 'https://el-teu-domini.com');
 
@@ -32,8 +32,8 @@ define('APP_URL', 'http://localhost/Projectes/PENNYKEEPER/frontend');
 define('DB_HOST',    'localhost');
 define('DB_PORT',    3306);
 define('DB_NAME',    'pennykeeper_db');
-define('DB_USER',    'root');      // hosting: usuari del panell de BD
-define('DB_PASS',    '');          // hosting: contrasenya del panell de BD
+define('DB_USER',    'marccervera');      // hosting: usuari del panell de BD
+define('DB_PASS',    'pokemonX1');        // hosting: contrasenya del panell de BD
 define('DB_CHARSET', 'utf8mb4');
 
 // ── Sessió ────────────────────────────────────────────────────
