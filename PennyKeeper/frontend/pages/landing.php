@@ -78,9 +78,6 @@ if (Auth::isLoggedIn()) {
     <div class="hero-preview">
         <div class="preview-card">
             <div class="preview-header">
-                <span class="preview-dot"></span>
-                <span class="preview-dot"></span>
-                <span class="preview-dot"></span>
                 <span class="preview-title">Resum del mes · Juny 2026</span>
             </div>
             <div class="preview-stats">
@@ -157,7 +154,7 @@ if (Auth::isLoggedIn()) {
                     <i class="bi bi-arrow-left-right"></i>
                 </div>
                 <h3>Ingressos i despeses</h3>
-                <p>Registra qualsevol moviment en segons. Categoritza, afegeix notes i filtra per mes per tenir sempre una visió clara.</p>
+                <p>Registra qualsevol moviment en segons. Categoritza, afegeix notes i filtra per mes per tenir una visió clara.</p>
             </div>
 
             <div class="feature-card">
@@ -165,7 +162,7 @@ if (Auth::isLoggedIn()) {
                     <i class="bi bi-arrow-repeat"></i>
                 </div>
                 <h3>Recurrents automàtics</h3>
-                <p>Marca el lloguer, la subscripció o el salari com a recurrent i PennyKeeper ho comptabilitza sol cada mes. Sense feina extra.</p>
+                <p>Apunta el lloguer, les subscripcions o el salari com a recurrent i PennyKeeper ho comptabilitza sol cada mes. Sense feina extra.</p>
             </div>
 
             <div class="feature-card">
@@ -173,7 +170,7 @@ if (Auth::isLoggedIn()) {
                     <i class="bi bi-piggy-bank"></i>
                 </div>
                 <h3>Plans d'estalvi</h3>
-                <p>Crea objectius d'estalvi, fes aportacions i segueix el progrés amb barres visuals. Vacances, cotxe, fons d'emergència.</p>
+                <p>Crea objectius d'estalvi, afegeix les aportacions i segueix el progrés amb barres visuals. Vacances, cotxe, fons d'emergència.</p>
             </div>
 
             <div class="feature-card">
@@ -181,7 +178,7 @@ if (Auth::isLoggedIn()) {
                     <i class="bi bi-graph-up-arrow"></i>
                 </div>
                 <h3>Inversions</h3>
-                <p>Registra borsa, crypto, fons o immobles. Veu el rendiment real comparant el que has aportat amb el valor actual.</p>
+                <p>Registra les teves inversions. Veu el rendiment real comparant el que has aportat amb el valor actual.</p>
             </div>
 
             <div class="feature-card">
@@ -189,7 +186,7 @@ if (Auth::isLoggedIn()) {
                     <i class="bi bi-bar-chart-line"></i>
                 </div>
                 <h3>Dashboard intel·ligent</h3>
-                <p>Cada vegada que entres, veus el balanç del mes, les últimes transaccions i les despeses per categoria d'un cop d'ull.</p>
+                <p>Cada vegada que entres, veus el balanç del mes, les últimes transaccions i les despeses per categoria amb un cop d'ull.</p>
             </div>
 
             <div class="feature-card">
@@ -197,7 +194,7 @@ if (Auth::isLoggedIn()) {
                     <i class="bi bi-phone"></i>
                 </div>
                 <h3>Responsive total</h3>
-                <p>Funciona perfectament al mòbil, tauleta i ordinador. La navbar s'adapta per ser còmoda en qualsevol pantalla.</p>
+                <p>Funciona perfectament al mòbil, tauleta i ordinador. PennyKeeper s'adapta per ser còmoda en qualsevol pantalla.</p>
             </div>
 
         </div>
@@ -262,7 +259,7 @@ if (Auth::isLoggedIn()) {
             <i class="bi bi-coin"></i>
             <span>PennyKeeper</span>
         </div>
-        <p>Fet amb cura per Marc Cervera · DAW Institut Montilivi, Girona</p>
+        <p>Autor · Marc Cervera</p>
     </div>
 </footer>
 

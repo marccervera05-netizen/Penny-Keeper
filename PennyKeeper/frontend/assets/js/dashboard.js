@@ -195,9 +195,17 @@ async function submitTransaction(type) {
 // ── Accions ràpides ──────────────────────────────────────────
 
 function initQuickActions() {
-    document.getElementById('btnIncome')?.addEventListener('click',  () => openTransactionForm('income'));
-    document.getElementById('btnExpense')?.addEventListener('click', () => openTransactionForm('expense'));
-    document.getElementById('btnSaving')?.addEventListener('click',  () => { window.location.href = 'savings.php'; });
+    document.getElementById('btnIncome')?.addEventListener('click', () => {
+        openModal();
+        openTransactionForm('income');
+    });
+    document.getElementById('btnExpense')?.addEventListener('click', () => {
+        openModal();
+        openTransactionForm('expense');
+    });
+    document.getElementById('btnSaving')?.addEventListener('click', () => {
+        window.location.href = 'savings.php';
+    });
 }
 
 // ── Helpers ──────────────────────────────────────────────────

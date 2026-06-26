@@ -659,3 +659,98 @@
 }
 
 .btn-back:hover { color: var(--color-dark); }
+
+/* ── Selector de tipus al modal ─────────────────────────────── */
+.type-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.type-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--color-border);
+    background-color: var(--color-bg);
+    cursor: pointer;
+    transition: all var(--transition);
+    font-family: var(--font-body);
+}
+
+.type-btn i {
+    font-size: 1.8rem;
+    color: var(--color-dark);
+}
+
+.type-btn span {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.type-btn small {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+.type-btn--income:hover {
+    border-color: var(--color-success);
+    background-color: #e8f2ec;
+}
+
+.type-btn--income:hover i { color: var(--color-success); }
+
+.type-btn--expense:hover {
+    border-color: var(--color-danger);
+    background-color: #f5e8e8;
+}
+
+.type-btn--expense:hover i { color: var(--color-danger); }
+
+/* ── Botó tornar al modal ────────────────────────────────────── */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    padding: 0;
+    margin-bottom: 0.25rem;
+    transition: color var(--transition);
+}
+
+.btn-back:hover { color: var(--color-dark); }
+
+/* ── Select dins el modal ───────────────────────────────────── */
+.modal-body .form-select {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3E%3Cpath fill='%23B08463' d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    padding-right: 2.2rem;
+    cursor: pointer;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.modal-body .form-select:focus {
+    outline: none;
+    border-color: var(--color-mid);
+    box-shadow: 0 0 0 3px rgba(176, 132, 99, 0.18);
+}

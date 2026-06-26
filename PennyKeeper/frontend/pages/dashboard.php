@@ -58,7 +58,7 @@ $currentPage = 'dashboard';
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="../assets/css/main.css" rel="stylesheet">
-    <link href="../assets/css/dashboard.css" rel="stylesheet">
+    <link href="../assets/css/dashboard.css?v=2" rel="stylesheet">
 </head>
 <body>
 
@@ -185,7 +185,7 @@ $currentPage = 'dashboard';
     const CATEGORIES         = <?= json_encode($expensesByCategory) ?>;
     const TOTAL_EXPENSES     = <?= $totalExpenses ?>;
 </script>
-<script src="../assets/js/dashboard.js"></script>
+<script src="../assets/js/dashboard.js?v=3"></script>
 
 </body>
 </html>
