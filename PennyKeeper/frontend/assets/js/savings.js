@@ -4,7 +4,7 @@
  * Gestiona els modals de crear, editar, afegir aportació i eliminar.
  */
 
-const API = '../../backend/api/controllers/SavingController.php';
+const API = `${API_BASE}/backend/api/controllers/SavingController.php`;
 
 document.addEventListener('DOMContentLoaded', () => {
     initNewPlanButtons();

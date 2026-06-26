@@ -171,7 +171,9 @@ $currentPage = 'settings';
 
     </main>
 </div>
-
+<script>
+    const API_BASE = '<?= rtrim(str_replace('/frontend', '', APP_URL), '/') ?>';
+</script>
 <script src="../assets/js/settings.js"></script>
 
 </body>

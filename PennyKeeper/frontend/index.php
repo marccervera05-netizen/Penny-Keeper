@@ -2,7 +2,7 @@
 /*
  * index.php
  * Punt d'entrada de l'aplicació.
- * Redirigeix al dashboard si hi ha sessió, o al login si no.
+ * Redirigeix al dashboard si hi ha sessió, o a la landing si no.
  */
 
 require_once __DIR__ . '/../backend/core/config.php';
@@ -13,6 +13,6 @@ Auth::startSession();
 if (Auth::isLoggedIn()) {
     header('Location: ' . APP_URL . '/pages/dashboard.php');
 } else {
-    header('Location: ' . APP_URL . '/pages/login.php');
+    header('Location: ' . APP_URL . '/pages/landing.php');
 }
 exit;

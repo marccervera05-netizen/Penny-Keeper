@@ -37,7 +37,7 @@ if (Auth::isLoggedIn()) {
             <i class="bi bi-coin"></i>
         </div>
         <h1>PennyKeeper</h1>
-        <p>Comença a tenir control real del teu diner. Crea el teu compte en menys d'un minut.</p>
+        <p>Comença a tenir control real dels teus diners. Crea el teu compte en menys d'un minut.</p>
     </div>
 
     <!-- Panel dret: formulari -->
@@ -133,7 +133,9 @@ if (Auth::isLoggedIn()) {
     </div>
 
 </div>
-
+<script>
+    const API_BASE = '<?= rtrim(str_replace('/frontend', '', APP_URL), '/') ?>';
+</script>
 <script src="../assets/js/auth.js"></script>
 </body>
 </html>

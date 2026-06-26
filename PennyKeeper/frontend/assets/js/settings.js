@@ -4,7 +4,7 @@
  * Gestiona l'actualització de perfil i contrasenya via API.
  */
 
-const API = '../../backend/api/controllers/SettingsController.php';
+const API = `${API_BASE}/backend/api/controllers/SettingsController.php`;
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btnSaveProfile').addEventListener('click', saveProfile);

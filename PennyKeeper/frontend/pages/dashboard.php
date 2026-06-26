@@ -2,7 +2,6 @@
 /*
  * dashboard.php
  * Pàgina principal de l'aplicació.
- * Mostra el resum del mes actual: ingressos, despeses i balanç.
  */
 
 require_once __DIR__ . '/../../backend/core/config.php';
@@ -10,6 +9,7 @@ require_once __DIR__ . '/../../backend/core/auth.php';
 require_once __DIR__ . '/../../backend/core/db.php';
 require_once __DIR__ . '/../../backend/models/Income.php';
 require_once __DIR__ . '/../../backend/models/Expense.php';
+require_once __DIR__ . '/../../backend/models/Category.php';
 
 Auth::require();
 
@@ -17,27 +17,24 @@ $userId = Auth::userId();
 $month  = (int) date('n');
 $year   = (int) date('Y');
 
-$incomeModel  = new Income();
-$expenseModel = new Expense();
+$incomeModel   = new Income();
+$expenseModel  = new Expense();
+$categoryModel = new Category();
 
 $totalIncome   = $incomeModel->sumByMonth($userId, $month, $year);
 $totalExpenses = $expenseModel->sumByMonth($userId, $month, $year);
 $balance       = $totalIncome - $totalExpenses;
 
-$expensesByCategory = $expenseModel->sumByCategoryAndMonth($userId, $month, $year);
+$expensesByCategory  = $expenseModel->sumByCategoryAndMonth($userId, $month, $year);
+$incomeCategories    = $categoryModel->findByUser($userId, 'income');
+$expenseCategories   = $categoryModel->findByUser($userId, 'expense');
 
 $recentIncomes  = $incomeModel->findByUser($userId, $month, $year);
 $recentExpenses = $expenseModel->findByUser($userId, $month, $year);
 
 $transactions = [];
-foreach ($recentIncomes as $item) {
-    $item['type'] = 'income';
-    $transactions[] = $item;
-}
-foreach ($recentExpenses as $item) {
-    $item['type'] = 'expense';
-    $transactions[] = $item;
-}
+foreach ($recentIncomes as $item)  { $item['type'] = 'income';  $transactions[] = $item; }
+foreach ($recentExpenses as $item) { $item['type'] = 'expense'; $transactions[] = $item; }
 usort($transactions, fn($a, $b) => strcmp($b['date'], $a['date']));
 $lastTransactions = array_slice($transactions, 0, 8);
 
@@ -46,8 +43,7 @@ $monthNames = [
     5 => 'Maig', 6 => 'Juny', 7 => 'Juliol', 8 => 'Agost',
     9 => 'Setembre', 10 => 'Octubre', 11 => 'Novembre', 12 => 'Desembre',
 ];
-$monthLabel = $monthNames[$month] . ' ' . $year;
-
+$monthLabel  = $monthNames[$month] . ' ' . $year;
 $currentPage = 'dashboard';
 ?>
 <!DOCTYPE html>
@@ -72,7 +68,6 @@ $currentPage = 'dashboard';
 
     <main class="main-content">
 
-        <!-- Capçalera -->
         <div class="page-header">
             <div>
                 <h1>Resum del mes</h1>
@@ -83,19 +78,14 @@ $currentPage = 'dashboard';
             </button>
         </div>
 
-        <!-- Targetes de resum -->
         <div class="summary-cards">
             <div class="summary-card summary-card--income">
                 <p class="summary-label">Ingressos</p>
-                <p class="summary-value">
-                    <?= number_format($totalIncome, 2, ',', '.') ?> €
-                </p>
+                <p class="summary-value"><?= number_format($totalIncome, 2, ',', '.') ?> €</p>
             </div>
             <div class="summary-card summary-card--expense">
                 <p class="summary-label">Despeses</p>
-                <p class="summary-value">
-                    <?= number_format($totalExpenses, 2, ',', '.') ?> €
-                </p>
+                <p class="summary-value"><?= number_format($totalExpenses, 2, ',', '.') ?> €</p>
             </div>
             <div class="summary-card summary-card--balance">
                 <p class="summary-label">Balanç net</p>
@@ -105,18 +95,8 @@ $currentPage = 'dashboard';
             </div>
         </div>
 
-        <!-- Gràfic evolució 6 mesos -->
-        <div class="card-pk">
-            <h2 class="card-title">Evolució dels últims 6 mesos</h2>
-            <div class="chart-wrapper">
-                <canvas id="evolutionChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Grid: categories + transaccions -->
         <div class="dashboard-grid">
 
-            <!-- Despeses per categoria -->
             <div class="card-pk">
                 <h2 class="card-title">Despeses per categoria</h2>
                 <?php if (empty($expensesByCategory)): ?>
@@ -132,7 +112,6 @@ $currentPage = 'dashboard';
                 <?php endif; ?>
             </div>
 
-            <!-- Últimes transaccions -->
             <div class="card-pk">
                 <h2 class="card-title">Últimes transaccions</h2>
                 <?php if (empty($lastTransactions)): ?>
@@ -166,7 +145,6 @@ $currentPage = 'dashboard';
 
         </div>
 
-        <!-- Accions ràpides -->
         <div class="card-pk">
             <h2 class="card-title">Accions ràpides</h2>
             <div class="quick-actions">
@@ -188,11 +166,10 @@ $currentPage = 'dashboard';
     </main>
 </div>
 
-<!-- Modal: afegir transacció -->
 <div class="modal-overlay" id="modalOverlay">
-    <div class="modal-box" id="modalBox">
+    <div class="modal-box">
         <div class="modal-header">
-            <h3 id="modalTitle">Nova transacció</h3>
+            <h3 id="modalTitle">Afegir moviment</h3>
             <button class="modal-close" id="modalClose" aria-label="Tancar">
                 <i class="bi bi-x-lg"></i>
             </button>
@@ -201,10 +178,12 @@ $currentPage = 'dashboard';
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <script>
-    const CATEGORIES     = <?= json_encode($expensesByCategory) ?>;
-    const TOTAL_EXPENSES = <?= $totalExpenses ?>;
+    const API_BASE          = '<?php echo rtrim(str_replace("/frontend", "", APP_URL), "/"); ?>';
+    const INCOME_CATEGORIES  = <?= json_encode($incomeCategories) ?>;
+    const EXPENSE_CATEGORIES = <?= json_encode($expenseCategories) ?>;
+    const CATEGORIES         = <?= json_encode($expensesByCategory) ?>;
+    const TOTAL_EXPENSES     = <?= $totalExpenses ?>;
 </script>
 <script src="../assets/js/dashboard.js"></script>
 

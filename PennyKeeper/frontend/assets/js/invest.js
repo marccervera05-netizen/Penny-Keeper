@@ -4,7 +4,7 @@
  * Gestiona: crear, editar, eliminar, afegir aportació, actualitzar valor de mercat.
  */
 
-const API = '../../backend/api/controllers/InvestmentController.php';
+const API = `${API_BASE}/backend/api/controllers/InvestmentController.php`;
 
 const TYPES = [
     { value: 'stocks',      label: 'Borsa' },

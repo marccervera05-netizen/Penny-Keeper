@@ -181,7 +181,9 @@ $currentPage = 'incomes';
         <div class="modal-body" id="modalBody"></div>
     </div>
 </div>
-
+<script>
+    const API_BASE = '<?= rtrim(str_replace('/frontend', '', APP_URL), '/') ?>';
+</script>
 <script>
     const PAGE_TYPE   = 'income';
     const CATEGORIES  = <?= json_encode($categories) ?>;

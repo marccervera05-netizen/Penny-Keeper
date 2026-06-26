@@ -107,7 +107,9 @@ if (Auth::isLoggedIn()) {
     </div>
 
 </div>
-
+<script>
+    const API_BASE = '<?= rtrim(str_replace('/frontend', '', APP_URL), '/') ?>';
+</script>
 <script src="../assets/js/auth.js"></script>
 </body>
 </html>
